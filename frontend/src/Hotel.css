@@ -1,0 +1,103 @@
+body {
+    background-color: #f5f5f5;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.hotel-container {
+    max-width: 1100px;
+    margin: 3rem auto;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.hotel-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.hotel-body {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.hotel-info {
+    flex: 1 1 60%;
+}
+
+.hotel-info h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+}
+
+.location {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.rating {
+    font-weight: bold;
+    color: #006ce4;
+    margin-bottom: 1.5rem;
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.amenities {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
+    text-align: left;
+    font-size: 14pt;
+}
+
+.amenities li {
+    margin-bottom: 0.4rem;
+    color: #444;
+}
+
+.reservation-card {
+    flex: 1 1 30%;
+    border: 1px solid #eee;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background-color: #fafafa;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    height: fit-content;
+}
+
+.price {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+}
+
+.reserve-btn {
+    background-color: #0071c2;
+    color: white;
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.reserve-btn:hover {
+    background-color: #005999;
+}

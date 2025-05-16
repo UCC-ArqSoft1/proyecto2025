@@ -3,6 +3,7 @@ package clients
 import (
 	"backend/dao"
 	"fmt"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -12,32 +13,28 @@ var (
 )
 
 func init() {
-	user := "root"
-	password := "root"
-	host := "localhost"
-	port := 3306
-	database := "backend"
-	dsn := fmt.Sprintf(
-		"%s:%s@tcp(%s:%d)/%s?parseTime=true&charset=utf8mb4&loc=Local",
-		user, password, host, port, database)
+	dsnFormat := "%s:%s@tcp(%s:%d)/%s?parseTime=true&charset=utf8mb4&loc=Local"
+	dsn := fmt.Sprintf(dsnFormat, "root", "root", "127.0.0.1", 3306, "backend")
 
 	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic(fmt.Sprintf("error connecting to DB: %v", err))
+		panic(fmt.Errorf("error connecting to database: %w", err))
 	}
-
-	DB.AutoMigrate(&dao.User{})
-	DB.Create(&dao.User{
-		ID:           1,
-		Username:     "emiliano",
-		PasswordHash: "121j212hs9812sj2189sj",
-	})
+	for _, table := range []interface{}{
+		dao.User{},
+	} {
+		if err := DB.AutoMigrate(&table); err != nil {
+			panic(fmt.Errorf("error migrating table: %w", err))
+		}
+	}
 }
 
-func GetUserByUsername(username string) dao.User {
-	var user dao.User
-	// SELECT * FROM users WHERE username = ? LIMIT 1
-	DB.First(&user, "username = ?", username)
-	return user
+func GetUserByUsername(username string) (dao.User, error) {
+	var userDAO dao.User
+	txn := DB.First(&userDAO, "username = ?", username)
+	if txn.Error != nil {
+		return dao.User{}, fmt.Errorf("error getting user: %w", txn.Error)
+	}
+	return userDAO, nil
 }

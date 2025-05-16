@@ -12,6 +12,7 @@ func main() {
 	services.Login("emiliano", "1234")
 
 	router := gin.New()
-	router.GET("/hotels/:id", controllers.GetHotelByID)
+	router.POST("/users/login", controllers.CORS, controllers.Login)
+	router.GET("/activities/:id", controllers.CORS, controllers.GetHotelByID)
 	router.Run()
 }
